@@ -1,0 +1,61 @@
+baseURL = "https://example.com"
+languageCode = "en-us"
+title = "tukmogi"
+theme = "LeaveIt"
+
+paginate = 12
+enableEmoji = true
+enableRobotsTXT = true
+googleAnalytics = ""
+
+preserveTaxonomyNames = true
+
+custom_css = ["css/custom.css"]
+
+[blackfriday]
+  hrefTargetBlank = true
+  nofollowLinks = true
+  noreferrerLinks = true
+
+[Permalinks]
+ posts = "/:year/:filename/"
+
+[menu]
+  [[menu.main]]
+    name = "Blog"
+    url = "/posts/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Categories"
+    url = "/categories/"
+    weight = 2
+
+  [[menu.main]]
+    name = "Tags"
+    url = "/tags/"
+    weight = 3
+
+
+[params]
+    since = 2021
+    author = "Tukmen Mogoria"                           # Author's name
+    avatar = "/images/me/avatar.png"           # Author's avatar
+    subtitle = "Lifelong learner"         # Subtitle
+    cdn_url = ""           # Base CDN URL
+    home_mode = "" # post or other
+
+    google_verification = ""
+   
+    description = "" # site description
+    keywords = "" # site keywords
+
+    beian = ""
+    baiduAnalytics = ""
+
+    license= 'This article uses the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-Non-Commercial Use 4.0 International License Agreement</a >Permit'
+
+[params.social]
+    GitHub = "mogoria"
+    Twitter = "tukmen_mogoria"
+
