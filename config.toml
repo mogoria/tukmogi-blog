@@ -1,61 +1,100 @@
 baseURL = "https://mogoria.github.io"
-languageCode = "en-us"
-title = "tukmogi"
-theme = "LeaveIt"
+# [en, zh-cn, fr, ...] determines default content language
+defaultContentLanguage = "en"
+# language code
+languageCode = "en"
+title = "tukmogi blog"
 
-paginate = 12
-enableEmoji = true
-enableRobotsTXT = true
-googleAnalytics = ""
+# Change the default theme to be use when building the site with Hugo
+theme = "DoIt"
 
-preserveTaxonomyNames = true
+[params]
+  # DoIt theme version
+  version = "0.2.X"
+  [params.home.profile]
+    enable = true
+    # Gravatar Email for preferred avatar in home page
+    gravatarEmail = ""
+    # URL of avatar shown in home page
+    avatarURL = "/images/me/avatar.png"
+    # whether to use typeit animation for subtitle
+    typeit = true
+    # whether to show social links
+    social = true 
+  [params.home.posts]
+    enable = true
+    paginate = 7 
+[params.header]
+    # desktop header mode ("fixed", "normal", "auto")
+    desktopMode = "fixed"
+    # mobile header mode ("fixed", "normal", "auto")
+    mobileMode = "auto"
+    # DoIt NEW | 0.2.11 Theme change mode
+    # theme change mode ("switch", "select")
+    themeChangeMode = "select"
+    # DoIt NEW | 0.2.0 Header title config
+    [params.header.title]
+      # URL of the LOGO
+      logo = ""
+      # title name
+      name = "tukmogi"
+      # you can add extra information before the name (HTML format is supported), such as icons
+      pre = ""
+      # you can add extra information after the name (HTML format is supported), such as icons
+      post = ""
+      # DoIt NEW | 0.2.5 whether to use typeit animation for title name
+      typeit = true  
+  [params.page]
+    [params.page.toc]
+      # whether to enable the table of the contents
+      enable = true
+      # DoIt NEW | 0.2.9 whether to keep the static table of the contents in front of the post
+      keepStatic = false
+      # whether to make the table of the contents in the sidebar automatically collapsed
+      auto = true
+    [params.page.code]
+      # whether to show the copy button of the code block
+      copy = true
+      # the maximum number of lines of displayed code by default
+      maxShownLines = 20
+  [params.social]
+    GitHub = "mogoria"
+    Twitter = "tukmen_mogoria"
 
-custom_css = ["css/custom.css"]
-
-[blackfriday]
-  hrefTargetBlank = true
-  nofollowLinks = true
-  noreferrerLinks = true
-
-[Permalinks]
- posts = "/:year/:filename/"
 
 [menu]
   [[menu.main]]
-    name = "Blog"
+    identifier = "posts"
+    # you can add extra information before the name (HTML format is supported), such as icons
+    pre = ""
+    # you can add extra information after the name (HTML format is supported), such as icons
+    post = ""
+    name = "Posts"
     url = "/posts/"
+    # title will be shown when you hover on this menu link
+    title = ""
     weight = 1
-
   [[menu.main]]
-    name = "Categories"
-    url = "/categories/"
-    weight = 2
-
-  [[menu.main]]
+    identifier = "tags"
+    pre = ""
+    post = ""
     name = "Tags"
     url = "/tags/"
+    title = ""
+    weight = 2
+  [[menu.main]]
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "Categories"
+    url = "/categories/"
+    title = ""
     weight = 3
 
-
-[params]
-    since = 2021
-    author = "Tukmen Mogoria"                           # Author's name
-    avatar = "/images/me/avatar.png"           # Author's avatar
-    subtitle = "Lifelong learner"         # Subtitle
-    cdn_url = ""           # Base CDN URL
-    home_mode = "" # post or other
-
-    google_verification = ""
-   
-    description = "" # site description
-    keywords = "" # site keywords
-
-    beian = ""
-    baiduAnalytics = ""
-
-    license= 'This article uses the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-Non-Commercial Use 4.0 International License Agreement</a >Permit'
-
-[params.social]
-    GitHub = "mogoria"
-    Twitter = "tukmen_mogoria"
+# Markup related configuration in Hugo
+[markup]
+  # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
+  [markup.highlight]
+    # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
+    noClasses = false
 
