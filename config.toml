@@ -2,21 +2,28 @@ baseURL = "https://mogoria.github.io"
 # [en, zh-cn, fr, ...] determines default content language
 defaultContentLanguage = "en"
 # language code
-languageCode = "en"
+locale = "en"
 title = "tukmogi blog"
 
 # Change the default theme to be use when building the site with Hugo
 theme = "DoIt"
 
 [params]
-  # DoIt theme version
-  version = "0.2.X"
+  # site description - used for <meta name="description">, og:description and
+  # twitter:description. Without it, link previews show a bare title.
+  description = "Writeups and notes on offensive security: HackTheBox machines, CTF challenges and web exploitation."
+  # site keywords
+  keywords = ["security", "ctf", "hackthebox", "writeups", "infosec", "web exploitation"]
   [params.home.profile]
     enable = true
     # Gravatar Email for preferred avatar in home page
     gravatarEmail = ""
     # URL of avatar shown in home page
     avatarURL = "/images/me/avatar.png"
+    # title shown in home page (HTML format is supported)
+    title = "tukmogi"
+    # subtitle shown in home page
+    subtitle = "Breaking boxes and writing it down."
     # whether to use typeit animation for subtitle
     typeit = true
     # whether to show social links
@@ -90,6 +97,14 @@ theme = "DoIt"
     url = "/categories/"
     title = ""
     weight = 3
+  [[menu.main]]
+    identifier = "about"
+    pre = ""
+    post = ""
+    name = "About"
+    url = "/about/"
+    title = ""
+    weight = 4
 
 # Markup related configuration in Hugo
 [markup]
@@ -98,3 +113,36 @@ theme = "DoIt"
     # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
     noClasses = false
 
+
+# Author info, used for post bylines and structured data
+[author]
+  name = "tukmogi"
+  link = "https://github.com/mogoria"
+
+# Site search. "fuse" is fully client-side and needs no external service or
+# API key - it just reads the JSON index emitted by the [outputs] block below.
+[params.search]
+  enable = true
+  type = "fuse"
+  contentLength = 4000
+  placeholder = "Search posts"
+  maxResultLength = 10
+  snippetLength = 30
+  highlightTag = "em"
+  absoluteURL = false
+  [params.search.fuse]
+    isCaseSensitive = false
+    minMatchCharLength = 2
+    findAllMatches = false
+    location = 0
+    threshold = 0.3
+    distance = 100
+    ignoreLocation = false
+    ignoreFieldNorm = false
+
+# The JSON output is what feeds the search index above.
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]

@@ -37,7 +37,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 Visiting the web service on port 80, we find a website with images and an upload feature.
 
-![Untitled](/images/forge-htb/Untitled.png)
+![The forge.htb upload page, offering "Upload local file" and "Upload from url" with a text field and Submit button](/images/forge-htb/Untitled.png)
 
 Scanning for subdomains reveals that there is one called ‘admin.forge.htb’
 
@@ -63,21 +63,21 @@ Accessing the site directly doesn’t isn’t possible, it filters out only for 
 
  
 
-![Untitled](/images/forge-htb/Untitled%201.png)
+![admin.forge.htb responding with "Only localhost is allowed!"](/images/forge-htb/Untitled%201.png)
 
 Since the upload feature, accepts a url, I decided to try fetch the admin portal through it. This also was not possible, there seems to be a back end filtering that has blacklisted names.
 
-![Untitled](/images/forge-htb/Untitled%202.png)
+![The upload form rejecting the request with "URL contains a blacklisted address!"](/images/forge-htb/Untitled%202.png)
 
 I had to look of a way to bypass this. After looking through, I found one that worked. I encoded the url in hex and got a successful upload
 
-![Untitled](/images/forge-htb/Untitled%203.png)
+![A hex encoder converting admin.forge.htb into 61%64%6D%69%6E%2E%66%6F%72%67%65%2E%68%74%62 using % as the delimiter](/images/forge-htb/Untitled%203.png)
 
 ```bash
 http://%61%64%6D%69%6E%2E%66%6F%72%67%65%2E%68%74%62/
 ```
 
-![Untitled](/images/forge-htb/Untitled%204.png)
+![The upload succeeding, returning "File uploaded successfully to the following url: http://forge.htb/uploads/M2dvG84uCCDDYJjBrULa"](/images/forge-htb/Untitled%204.png)
 
 We are able to access the admin portal and able to receive more functionality. We see that there is a juicy endpoint called announcements.
 
@@ -141,7 +141,7 @@ Trying to access the ftp service, I get another filter
 http://%61%64%6D%69%6E%2E%66%6F%72%67%65%2E%68%74%62/upload/?u=ftp://user:heightofsecurity123!@localhost
 ```
 
-![Untitled](/images/forge-htb/Untitled%205.png)
+![The ftp:// attempt rejected with the same "URL contains a blacklisted address!" message](/images/forge-htb/Untitled%205.png)
 
 Once more, a bypass is needed. Encoding [localhost](http://localhost) as hex, works as well. And this gives us access to the ftp service.
 
@@ -266,7 +266,7 @@ finally:
 
 I opened up two session for to the box. For the first session, I triggered the remote management app and to the other I connected to the listener. I triggered an error by supplying an alphabetical character instead of a digit. When pdf was triggered, I spawned a shell
 
-![Untitled](/images/forge-htb/Untitled%206.png)
+![Two terminals side by side: remote-manage.py drops into Pdb after a non-numeric option, and "import pty; pty.spawn('/bin/bash')" returns a root shell reading /root/root.txt](/images/forge-htb/Untitled%206.png)
 
 Retrieving the shadow file
 
@@ -312,13 +312,13 @@ ftp:*:18767:0:99999:7:::
 
 I went on to examine how the blocking was being done, there was a list of bad words which would make the request fail it any part of it had a match.
 
-![Untitled](/images/forge-htb/Untitled%207.png)
+![The blacklist array containing forge.htb, 127.0.0.1, 10.10.10.10, ::1, localhost, 0.0.0.0 and [0:0:0:0:0:0:0:0]](/images/forge-htb/Untitled%207.png)
 
 Examining the upload feature that gave us a foothold to the box. Command injection seems possible but I couldn’t manage to trigger. After I looked up what was happening, I saw that shlex was used to escape shell syntax by wrapping our payload in quotes. This therefore prevented command injection.
 
-![Untitled](/images/forge-htb/Untitled%208.png)
+![The upload_from_url() function routing http/https to upload_remote_file, and ftp/ftps through shlex.quote into subprocess.check_output with shell=True](/images/forge-htb/Untitled%208.png)
 
-![Untitled](/images/forge-htb/Untitled%209.png)
+![Python documentation for shlex.quote(s): "Return a shell-escaped version of the string *s*"](/images/forge-htb/Untitled%209.png)
 
 ```python
 from . import app

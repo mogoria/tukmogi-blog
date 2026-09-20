@@ -8,29 +8,33 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
-          # extended: true
+          # Pinned deliberately: the theme is tested against this version.
+          # Bump it and the DoIt submodule together.
+          hugo-version: '0.166.0'
+          extended: true  # DoIt compiles SCSS and requires the extended build
 
       - name: Build
         run: hugo --minify
 
-      - name: Deploy                               
-        uses: peaceiris/actions-gh-pages@v3
+      # Pull requests build above as a check, but only pushes to main publish.
+      - name: Deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: mogoria/mogoria.github.io
           publish_branch: master
           # Without `keep_files` the `CNAME` file in the target repo will get removed
-          # and the custom domain configured for GitHub pages will get dropped every 
+          # and the custom domain configured for GitHub pages will get dropped every
           # time the action runs…
           keep_files: true
