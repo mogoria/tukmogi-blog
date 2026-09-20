@@ -21,9 +21,4 @@ the code review that explained why.
 
 - GitHub: [@mogoria](https://github.com/mogoria)
 - Twitter: [@tukmen_mogoria](https://twitter.com/tukmen_mogoria)
-
-<!-- TODO(tukmogi): fill these in if you want them --
-     - what you actually do (student? working in security? which area?)
-     - certs / rankings worth mentioning (OSCP, HTB profile, CTF team)
-     - how people should reach you (email? keybase? signal?)
-     Delete this comment once you've edited the above. -->
+- Certs: OSCP, OSWE, OSEP
