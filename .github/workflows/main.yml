@@ -34,7 +34,7 @@ jobs:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: mogoria/mogoria.github.io
           publish_branch: master
-          # Without `keep_files` the `CNAME` file in the target repo will get removed
-          # and the custom domain configured for GitHub pages will get dropped every
-          # time the action runs…
-          keep_files: true
+          # false so the published site is exactly what `hugo` built - with
+          # `keep_files: true` anything deleted here lingered in the target repo
+          # forever. Set this back to true if a custom domain (CNAME) is added.
+          keep_files: false
